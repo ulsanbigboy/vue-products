@@ -1,11 +1,14 @@
-## Management System
-본 프로젝트는 React 강의 목적으로 만들어진 고객 관리 시스템(Management System)입니다.
 
-cd product/server
+# ■ 제품판매웹앱 ■
+
+## 사용법
+본 프로젝트는 Vue 강의 목적으로 만들어진 고객 관리 시스템(Management System)입니다.
+
+cd products/server
 npm install
 node app.js
 
-cd product/client
+cd products/client
 npm install
 npm run serve
 
