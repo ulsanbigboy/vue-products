@@ -1,3 +1,7 @@
+
+//
+// ■
+//
 const express = require('express');
 const app = express();
 const session = require('express-session');
@@ -10,8 +14,14 @@ let corsOption = {
   credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
 }
 
+//
+// ■
+//
 app.use(cors(corsOption)); // CORS 미들웨어 추가
 
+//
+// ■
+//
 app.use(session({
   secret: 'secret code',
   resave: false,
@@ -22,21 +32,34 @@ app.use(session({
   }
 }));
 
+//
+// ■
+//
 app.use(express.json({
   limit: '50mb'
 }));
 
+//
+// ■
+//
 const server = app.listen(3000, () => {
   console.log('Server started. port 3000.');
 });
 
+//
+// ■
+//
 let sql = require('./sql.js');
 
+//
+// ■
+//
 fs.watchFile(__dirname + '/sql.js', (curr, prev) => {
   console.log('sql 변경시 재시작 없이 반영되도록 함.');
   delete require.cache[require.resolve('./sql.js')];
   sql = require('./sql.js');
 });
+
 /*
 const db = {
   user: 'postgres',
@@ -48,6 +71,7 @@ const db = {
 
 const dbPool = require('pg').createPool(db);
 */
+
 const {Pool} = require('pg');
 const dbPool=new Pool({
   user: 'postgres',
@@ -56,12 +80,22 @@ const dbPool=new Pool({
   password: 'web0admin',
   port: 5527
 })
+
+
+//
+// ■
+//
 dbPool.connect(err =>{
   if(err) console.log(err);
   else {
     console.log("연결성공");
   }
 })
+
+
+//
+// ■
+//
 app.post('/api/login', async (request, res) => {
   request.session['email'] = 'seungwon.go@gmail.com';
   res.send('ok');
@@ -84,11 +118,17 @@ app.post('/api/login', async (request, res) => {
 */  
 });
 
+//
+// ■
+//
 app.post('/api/logout', async (request, res) => {
   request.session.destroy();
   res.send('ok');
 });
 
+//
+// ■
+//
 app.post('/upload/:productId/:type/:fileName', async (request, res) => {
 
   let {
@@ -120,6 +160,9 @@ app.post('/upload/:productId/:type/:fileName', async (request, res) => {
   });
 });
 
+//
+// ■
+//
 app.get('/download/:productId/:fileName', (request, res) => {
   const {
     productId,
@@ -134,6 +177,9 @@ app.get('/download/:productId/:fileName', (request, res) => {
   else fs.createReadStream(filepath).pipe(res);
 });
 
+//
+// ■
+//
 app.post('/apirole/:alias', async (request, res) => {
   if (!request.session.email) {
     return res.status(401).send({
@@ -150,6 +196,9 @@ app.post('/apirole/:alias', async (request, res) => {
   }
 });
 
+//
+// ■
+//
 app.post('/api/:alias', async (request, res) => {
   try {
     res.send(await req.db(request.params.alias, request.body.param, request.body.where));
@@ -160,6 +209,9 @@ app.post('/api/:alias', async (request, res) => {
   }
 });
 
+//
+// ■
+//
 const req = {
   async db(alias, param = [], where = '') {
     return new Promise((resolve, reject) => dbPool.query(sql[alias].query + where, param, (error, rows) => {
@@ -173,3 +225,6 @@ const req = {
     }));
   }
 };
+
+
+
