@@ -60,18 +60,17 @@ fs.watchFile(__dirname + '/sql.js', (curr, prev) => {
   sql = require('./sql.js');
 });
 
-/*
 const db = {
-  user: 'postgres',
+  user: 'root',
   host: 'ubb.iptime.org',
-  database: 'postgres',
-  password: 'web0admin',
-  port: 5527
+  database: 'vue-products',
+  password: 'apmsetup',
+  port: 5525
 };
-
-const dbPool = require('pg').createPool(db);
+const dbPool = require('mysql').createPool(db);
+/*
 */
-
+/*
 const {Pool} = require('pg');
 const dbPool=new Pool({
   user: 'postgres',
@@ -80,17 +79,19 @@ const dbPool=new Pool({
   password: 'web0admin',
   port: 5527
 })
-
+*/
 
 //
 // ■
 //
+/*
 dbPool.connect(err =>{
   if(err) console.log(err);
   else {
     console.log("연결성공");
   }
 })
+*/
 
 
 //
@@ -225,6 +226,4 @@ const req = {
     }));
   }
 };
-
-
 

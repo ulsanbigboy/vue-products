@@ -86,10 +86,11 @@ export default {
       return this.$store.state.user;
     }
   },
+
   methods: {
     kakaoLoin() {
       window.Kakao.Auth.login({
-        scope: 'profile, account_email, gender',
+        //scope: 'profile, account_email, gender',
         success: this.getProfile
       });
     },

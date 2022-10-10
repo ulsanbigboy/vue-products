@@ -1,0 +1,9 @@
+{
+    "host": "ubb.iptime.org",
+    "user": "root",
+    "password": "web0admin",
+    "database": "vue-products",
+    "port": 5525,
+    "connectionLimit": 30
+  }
+
